@@ -1,0 +1,14 @@
+services:
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - '9000:9000' # Port pour les API S3
+      - '9001:9001' # Port pour la console d'administration
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: password # Remplace par ton mot de passe
+    volumes:
+      - ./data:/data # Répertoire local où les fichiers seront stockés
+      - ./config:/root/.minio # Répertoire local pour les fichiers de configuration
+    command: server /data --console-address ":9001"
